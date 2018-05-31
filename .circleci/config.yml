@@ -52,35 +52,35 @@ jobs:
           docker login -u $DOCKER_USER -p $DOCKER_PASS         
           docker push wadman/circleci-demo-fe:$TAG
           
-    # deploy:
-    #     docker: 
-    #     - image: protocool/rancher-circleci:latest
+    deploy:
+        docker: 
+        - image: protocool/rancher-circleci:latest
 
-    #     steps:
-    #     - checkout
-    #     - run: 
-    #         rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
-    #     - run:
-    #         rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-backoffice
+        steps:
+        - checkout
+        - run: 
+            rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
+        - run:
+            rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-backoffice
 
-    #     - run:
-    #         rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade -d app-backoffice
+        - run:
+            rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade -d app-backoffice
         
-    #     - run:
-    #         when: on_fail
-    #         command: 
-    #             rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback -d app-backoffice
+        - run:
+            when: on_fail
+            command: 
+                rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback -d app-backoffice
 
 
-    # workflows:
-    # version: 2
-    # build-and-deploy:
-    #     jobs:
-    #     - build:
-    #         filters:
-    #             branches:
-    #             only:
-    #                 - develop
-    #     - deploy:
-    #         requires:
-    #             - build
+    workflows:
+    version: 2
+    build-and-deploy:
+        jobs:
+        - build:
+            filters:
+                branches:
+                only:
+                    - develop
+        - deploy:
+            requires:
+                - build
