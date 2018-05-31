@@ -8,7 +8,7 @@ jobs:
   build:
     branches:
       only:
-        - frontend
+        - develop
         
     docker:
       # specify the version you desire here
