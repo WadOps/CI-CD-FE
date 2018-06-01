@@ -3,7 +3,6 @@
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
 version: 2
-
 jobs:
   build:
     # branches:
@@ -38,8 +37,8 @@ jobs:
     #         - node_modules
     #       key: v1-dependencies-{{ checksum "package.json" }}
 
-      - setup_remote_docker:   
-          docker_layer_caching: true 
+			- setup_remote_docker:   
+					docker_layer_caching: true 
 
     #   # run tests!
     #   - run: 
@@ -54,22 +53,22 @@ jobs:
           
 	deploy:
 			docker: 
-			- image: protocool/rancher-circleci:latest
+				- image: protocool/rancher-circleci:latest
 
 			steps:
-			- checkout
-			- run: 
-					rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
-			- run:
-					rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-backoffice
+				- checkout
+				- run: 
+						rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
+				- run:
+						rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-backoffice
 
-			- run:
-					rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade -d app-backoffice
-			
-			- run:
-					when: on_fail
-					command: 
-							rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback -d app-backoffice
+				- run:
+						rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade -d app-backoffice
+				
+				- run:
+						when: on_fail
+						command: 
+								rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --rollback -d app-backoffice
 
 
 workflows:
