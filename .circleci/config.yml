@@ -59,7 +59,7 @@ jobs:
       - run: 
           rancher-compose --url $RANCHER_URL --access-key $RANCHER_ACCESS_KEY --secret-key $RANCHER_SECRET_KEY
       - run:
-          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --upgrade --pull -d app-frontend
+          rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --force-upgrade --pull -d app-frontend
 
       - run:
           rancher-compose -f technical-screening-app/docker-compose.yml -r technical-screening-app/rancher-compose up --confirm-upgrade -d app-frontend
