@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === 'production') {
     baseURL = 'http://backend.tech.sdrm.me:7331'
 } else {
     baseURL = 'http://app-sails:1337'
-    baseURL = 'http://localhost:1337'
+    // baseURL = 'http://localhost:1337'
 }
 
 export default {
