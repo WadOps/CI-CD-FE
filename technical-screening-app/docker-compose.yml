@@ -60,7 +60,7 @@ services:
     links:
     - app-sails:app-sails
     command:
-    - npm
-    - start
+    - node
+    - server.js
     labels:
       io.rancher.container.pull_image: always
