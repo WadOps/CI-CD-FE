@@ -76,7 +76,7 @@ export default {
     dark: true,
     drawer: false,
     menuItems: [],
-    title: 'Your last step to Hidden Founders'
+    title: 'Your first step to Hidden Founders'
   }),
   methods: {
     changetheme() {
